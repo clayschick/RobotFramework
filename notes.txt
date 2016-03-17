@@ -1,0 +1,3 @@
+docker run -d -p 4444:4444 --name selenium-hub selenium/hub
+docker run -d --name selenium-node --link selenium-hub:hub selenium/node-firefox
+docker run -it --name robot --link selenium-hub:hub -v $PWD/WebDemo/login_tests:/robot robot bash

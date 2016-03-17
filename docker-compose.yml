@@ -1,0 +1,23 @@
+version: '2'
+services:
+  hub:
+    image: selenium/hub
+    ports:
+      - "4444:4444"
+    expose:
+      - "4444"
+  firefox:
+    image: selenium/node-firefox
+    links:
+      - hub
+  chrome:
+    image: selenium/node-chrome
+    links:
+      - hub
+  robot:
+    build:
+      context: .
+    links:
+      - hub
+    volumes:
+      - $PWD/WebDemo/login_tests:/robot
