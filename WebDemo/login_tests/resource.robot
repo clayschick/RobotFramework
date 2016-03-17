@@ -7,7 +7,7 @@ Documentation     A resource file with reusable keywords and variables.
 Library           Selenium2Library
 
 *** Variables ***
-${SERVER}         192.168.1.70:7272
+${SERVER}         app:7272
 ${BROWSER}        Firefox
 ${DELAY}          0
 ${VALID USER}     demo
@@ -18,7 +18,7 @@ ${ERROR URL}      http://${SERVER}/error.html
 
 *** Keywords ***
 Open Browser To Login Page
-    Open Browser    ${LOGIN URL}    ${BROWSER}  None  http://selenium-hub:4444/wd/hub
+    Open Browser    ${LOGIN URL}    ${BROWSER}  None  http://hub:4444/wd/hub
     Maximize Browser Window
     Set Selenium Speed    ${DELAY}
     Login Page Should Be Open

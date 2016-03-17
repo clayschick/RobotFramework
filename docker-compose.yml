@@ -8,16 +8,33 @@ services:
       - "4444"
   firefox:
     image: selenium/node-firefox
-    links:
+    depends_on:
       - hub
+    environment:
+      - HUB_PORT_4444_TCP_ADDR=hub
+      - HUB_PORT_4444_TCP_PORT=4444
   chrome:
     image: selenium/node-chrome
-    links:
+    depends_on:
       - hub
+    environment:
+      - HUB_PORT_4444_TCP_ADDR=hub
+      - HUB_PORT_4444_TCP_PORT=4444
   robot:
     build:
       context: .
     links:
       - hub
+      - app
     volumes:
       - $PWD/WebDemo/login_tests:/robot
+  app:
+   image: python:2
+   ports:
+      - "7272:7272"
+   expose:
+    - "7272"
+   volumes:
+      - $PWD/WebDemo/demoapp/:/app
+   working_dir: /app
+   command: [python, ./server.py]
